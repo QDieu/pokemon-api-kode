@@ -1,0 +1,40 @@
+.infoContainer {
+  width: 100%;
+  display: inline-flex;
+}
+
+.leftSectionWrapper {
+  width: 47%;
+  margin: 50px;
+}
+
+.imgPokemonInfo {
+  width: 100%;
+  max-width: 450px;
+  display: block;
+  margin: 0 auto;
+}
+
+.description {
+  font-size: 1.2em;
+}
+
+.description p{
+  margin: 2px;
+}
+
+.rightSectionWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  font-size: 1.6em;
+  max-height: 500px;
+}
+
+.rightSectionWrapper ul {
+  list-style-type: none;
+}
+
+.rightSectionWrapper li {
+  padding: 10px 0 10px 0;
+}

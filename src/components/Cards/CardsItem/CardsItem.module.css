@@ -1,0 +1,77 @@
+@import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap");
+
+.cardsContainer {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+}
+
+.cardItemWrapper {
+  width: 100%;
+  transition: width 0.2s;
+  padding: 0 10px 10px 10px;
+}
+
+@media only screen and (min-width: 450px) {
+  .cardItemWrapper {
+    width: 50%;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .cardItemWrapper {
+    width: 33.333%;
+  }
+}
+
+@media only screen and (min-width: 1000px) {
+  .cardItemWrapper {
+    width: 16.6%;
+  }
+}
+
+.cardItem {
+  display: block;
+  border: 1px solid #b5e9a7;
+  border-radius: 3px;
+  position: relative;
+  background: #fff;
+  text-decoration: none;
+  color: #474747;
+  z-index: 0;
+  width: 100%;
+}
+
+.imgPokemon {
+  position: relative;
+  padding-bottom: 100%;
+  overflow: hidden;
+}
+
+.imgPokemon img {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  transition: transform 0.4s ease-out;
+}
+
+.link {
+  text-decoration: none;
+}
+
+.description {
+  font-family: "Nanum Gothic", sans-serif;
+  position: relative;
+  margin: 0;
+  font-size: 1.1em;
+  line-height: 1.4em;
+  height: 5.6em;
+  overflow: hidden;
+  color: #474747;
+}

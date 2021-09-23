@@ -1,0 +1,25 @@
+.mainContainer {
+  width: 20%;
+  height: 100v;
+  margin-right: 50px;
+}
+
+.formContainer {
+  margin: 10px;
+}
+
+.selectForm {
+  cursor: pointer;
+  width: 300px;
+  background-color: #4daf7c;
+  color: #fff;
+  font-size: inherit;
+  padding: 0.5em;
+  padding-right: 2.5em;
+  border: 0;
+  margin: 0;
+  border-radius: 3px;
+  text-indent: 0.01px;
+  text-overflow: "";
+  -webkit-appearance: button;
+}

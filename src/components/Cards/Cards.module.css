@@ -1,0 +1,8 @@
+.mainContainer {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.cardsContainer {
+  width: 80%;
+}
