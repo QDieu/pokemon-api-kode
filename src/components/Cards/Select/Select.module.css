@@ -23,3 +23,17 @@
   text-overflow: "";
   -webkit-appearance: button;
 }
+
+@media only screen and (max-width: 1050px) {
+  .mainContainer{
+    width : 90%;
+  }
+
+  .formContainer{
+    width: 100%;
+  }
+
+  .selectForm{
+    width: 100%;
+  }
+}

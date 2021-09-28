@@ -3,11 +3,11 @@ import { NavLink } from "react-router-dom";
 import style from "./CardsItem.module.css";
 import Pagination from "./Pagination";
 
-const CardsItems = (props) => {
+const CardsItems = ({cards, setUnicIdCard, ...props}) => {
   return (
     <div>
       <ul className={style.cardsContainer}>
-        {props.cards.map((item, index) => (
+        {cards.map((item, index) => (
           <li
             key={item.id}
             className={style.card}
@@ -17,7 +17,7 @@ const CardsItems = (props) => {
               <div className={style.imgPokemon}>
                 <img src={item.images.small} alt="" />
               </div>
-              <NavLink to={`/card/${item.id}`} className={style.link} onClick={() => {props.setUnicIdCard(index)}}>
+              <NavLink to={`/card/${item.id}`} className={style.link} onClick={() => {setUnicIdCard(index)}}>
                 <div className={style.description}>
                   <p>{item.name}</p>
                   <p>{item.artist}</p>
@@ -27,11 +27,11 @@ const CardsItems = (props) => {
           </li>
         ))}
       </ul>
-      <Pagination
+      {props.totalCount ? <Pagination
         totalCount={props.totalCount}
         onPageChanged={props.onPageChanged}
-        currentPage={props.currentPage}
-      />
+        currentPage={props.currentPage} 
+      /> : <div>NOT FOUND</div>}
     </div>
   );
 };

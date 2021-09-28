@@ -1,112 +1,57 @@
-import axios from "axios";
-import React from "react";
+import React, { useEffect } from "react";
 import CardsItems from "./CardsItem";
 import {
-  setCardsAC,
-  setTotalCountAC,
-  setCurrentPageAC,
-  setUnicIdCardAc
+  setCurrentPage,
+  setUnicIdCard,
+  getCards
 } from "./../../../redux/card-reducer";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-class CardsItemsContainer extends React.Component {
-  componentDidMount() {
-    if (this.props.cards.length === 0) {
-      axios
-        .get("https://api.pokemontcg.io/v2/cards", {
-          params: {
-            pageSize: 20
-          }
-        })
-        .then((response) => {
-          this.props.setCards(response.data.data);
-          this.props.setTotalCount(response.data.totalCount);
-        });
+const CardItemsContainer = () => {
+
+  const cards = useSelector(state => state.cardItems.cards);
+  const currentPage = useSelector(state => state.cardItems.currentPage);
+  const totalCount = useSelector(state => state.cardItems.totalCount);
+  const filter = useSelector(state => state.select.selectFilter)
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    let filterTemp = "";
+    for (let key in filter) {
+      if (filter[key])
+        filterTemp =
+          filterTemp +
+          key +
+          ":" +
+          filter[key].split(" ").join("") +
+          " ";
     }
-  }
 
-  componentDidUpdate(prevProps) {
-    if (
-      JSON.stringify(prevProps.filter) !== JSON.stringify(this.props.filter) ||
-      JSON.stringify(prevProps.currentPage) !==
-        JSON.stringify(this.props.currentPage)
-    ) {
-      let filter = "";
-      for (let key in this.props.filter) {
-        if (this.props.filter[key])
-          filter =
-            filter +
-            key +
-            ":" +
-            this.props.filter[key].split(" ").join("") +
-            " ";
-      }
+    dispatch(getCards(20, currentPage, filterTemp))
+  }, [filter, currentPage])
 
-      axios
-        .get("https://api.pokemontcg.io/v2/cards", {
-          params: {
-            pageSize: 20,
-            page: this.props.currentPage,
-            q: filter
-          }
-        })
-        .then((response) => {
-          this.props.setCards(response.data.data);
-          this.props.setTotalCount(response.data.totalCount);
-        });
-      if (
-        JSON.stringify(prevProps.filter) !== JSON.stringify(this.props.filter)
-      )
-        this.props.setCurrentPage(1);
-    }
-  }
+  useEffect(() => {
+    dispatch(setCurrentPage(1));
+  },[filter])
 
-  onPageChanged = (pageNumber) => {
-    this.props.setCurrentPage(pageNumber);
+  const onPageChanged = (pageNumber) => {
+    dispatch(setCurrentPage(pageNumber));
   };
 
-  render() {
-    return (
-      <>
-        <CardsItems
-          cards={this.props.cards}
-          totalCount={this.props.totalCount}
-          onPageChanged={this.onPageChanged}
-          currentPage={this.props.currentPage}
-          setUnicIdCard = {this.props.setUnicIdCard}
-        />
-      </>
-    );
+  const selectCard = (index) => {
+    dispatch(setUnicIdCard(index));
   }
+  return <>
+    <CardsItems
+      cards={cards}
+      totalCount={totalCount}
+      onPageChanged={onPageChanged}
+      currentPage={currentPage}
+      setUnicIdCard={selectCard}
+    />
+  </>
 }
 
-const mapStateToProps = (state) => {
-  return {
-    cards: state.cardItems.cards,
-    currentPage: state.cardItems.currentPage,
-    totalCount: state.cardItems.totalCount,
-    filter: state.select.selectFilter
-  };
-};
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setCards: (cards) => {
-      dispatch(setCardsAC(cards));
-    },
-    setTotalCount: (totalCount) => {
-      dispatch(setTotalCountAC(totalCount));
-    },
-    setCurrentPage: (currentPage) => {
-      dispatch(setCurrentPageAC(currentPage));
-    },
-    setUnicIdCard : (unicIdCard) => {
-      dispatch(setUnicIdCardAc(unicIdCard));
-    }
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CardsItemsContainer);
+export default CardItemsContainer;

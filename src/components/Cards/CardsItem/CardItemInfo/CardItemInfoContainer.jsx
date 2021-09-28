@@ -1,38 +1,27 @@
-import axios from "axios";
-import React from "react";
-import { connect } from "react-redux";
+import React, { useEffect } from "react";
 import { withRouter } from "react-router";
-import { compose } from "redux";
 import CardItemInfo from "./CardItemInfo";
+import {getCardInfo} from './../../../../redux/card-reducer'
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";  
 
-class CardItemInfoContainer extends React.Component {
+const CardItemInfoContainer = (props) => {
+  console.log('Card item Info container render')
+  const linkId = props.match.params.cardId;
 
-  state ={
-    cardTemp : {},
-  }
+  const card = useSelector(state => state.cardItems.cardInfo);
+  const unicId = useSelector(state => state.cardItems.unicIdCard);
 
-  componentDidMount(){
-    (this.props.unicId !== null) ? this.setState({cardTemp : this.props.cards[this.props.unicId]})
-    : axios.get(`https://api.pokemontcg.io/v2/cards/${this.props.match.params.cardId}`).then(response =>{
-      const cardTemp = response.data.data;
-      this.setState({cardTemp});
-    })
-  }
+  const dispatch = useDispatch();
 
-  render() {
-    if (Object.keys(this.state.cardTemp).length !== 0) return <CardItemInfo card = {this.state.cardTemp}/>;
+  useEffect(() => {
+    const id = linkId;
+    dispatch(getCardInfo(id, unicId))
+  }, [linkId])
+
+  if (typeof card === "object" && Object.keys(card).length !== 0) 
+      return <CardItemInfo card = {card}/>;
     return <div>Loading...</div>
-  }
-}
+} 
 
-const mapStateToProps = (state) => {
-  return {
-    cards : state.cardItems.cards,
-    unicId : state.cardItems.unicIdCard,
-  }
-}
-
-export default compose(
-  connect(mapStateToProps, null),
-  withRouter,
-)(CardItemInfoContainer);
+export default withRouter(CardItemInfoContainer)

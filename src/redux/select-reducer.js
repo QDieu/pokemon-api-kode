@@ -1,3 +1,5 @@
+import { selectAPI } from "../api/api";
+
 const SET_TYPES = "SET_TYPES";
 const SET_SUBTYPES = "SET_SUBTYPES";
 const SET_SUPERTYPES = "SET_SUPERTYPES";
@@ -38,13 +40,34 @@ const selectReducer = (state = initialState, action) => {
   }
 };
 
-export const setTypesAc = (data) => ({ type: SET_TYPES, data });
-export const setSubTypesAc = (data) => ({ type: SET_SUBTYPES, data });
-export const setSuperTypesAc = (data) => ({ type: SET_SUPERTYPES, data });
-export const setRaritiesAc = (data) => ({ type: SET_RARITIES, data });
-export const setSelectAc = (selectFilter) => ({
+export const setTypes = (data) => ({ type: SET_TYPES, data });
+export const setSubTypes = (data) => ({ type: SET_SUBTYPES, data });
+export const setSuperTypes = (data) => ({ type: SET_SUPERTYPES, data });
+export const setRarities = (data) => ({ type: SET_RARITIES, data });
+export const setSelect = (selectFilter) => ({
   type: SET_SELECT,
   selectFilter
 });
+
+//Thunks
+export const getTypes = () => async (dispatch) => {
+  let response = await selectAPI.getTypes();
+  dispatch(setTypes(response.data));
+}
+
+export const getSubTypes = () => async (dispatch) => {
+  let response = await selectAPI.getSubTypes();
+  dispatch(setSubTypes(response.data));
+}
+
+export const getSuperTypes = () => async (dispatch) => {
+  let response = await selectAPI.getSuperTypes();
+  dispatch(setSuperTypes(response.data));
+}
+
+export const getRarities = () => async (dispatch) => {
+  let response = await selectAPI.getRarities();
+  dispatch(setRarities(response.data));
+}
 
 export default selectReducer;

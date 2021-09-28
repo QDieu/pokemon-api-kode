@@ -4,7 +4,6 @@ import style from "./CardItemInfo.module.css";
 const InfoWrapper = ({name, data = null}) => (data ? <p><b>{name}</b> : {data}</p> : null)
 
 const CardItemInfo = ({card}) => {
-  console.log(card);
   return (
     <div className={style.infoContainer}>
       <div className={style.leftSectionWrapper}>
