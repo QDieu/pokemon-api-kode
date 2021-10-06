@@ -2,9 +2,14 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import style from "./Login.module.css";
 
-const Login = (props) => {
+type PropsType = {
+  checkLoginPassword : (login : string, password : string) => void, 
+  errorAuth : boolean
+}
+
+const Login : React.FC<PropsType> = (props) => {
   const { register, handleSubmit, formState: {errors} } = useForm(); 
-  const onSubmit = (data) =>
+  const onSubmit = (data : {login : string, password : string}) =>
     props.checkLoginPassword(data.login, data.password);
 
   return (

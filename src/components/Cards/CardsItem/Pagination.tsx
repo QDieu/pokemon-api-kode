@@ -1,7 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, MouseEvent, useEffect, useState } from "react";
 import style from "./Pagination.module.css";
 
-const Pagination = ({ totalCount, onPageChanged, currentPage }) => {
+type PropsType = {
+  totalCount : number,
+  onPageChanged : (page : number) => void,
+  currentPage : number;
+}
+
+const Pagination : React.FC<PropsType>= ({ totalCount, onPageChanged, currentPage }) => {
   let portionSize = 5;
 
   let pageCount = Math.ceil(totalCount / 20);
@@ -22,14 +28,16 @@ const Pagination = ({ totalCount, onPageChanged, currentPage }) => {
     onPageChanged(currentPage + 1);
   };
 
-  const changePage = (event) => {
-    const pageNumber = Number(event.target.textContent);
+  const changePage = (event : MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault()
+    const pageNumber = Number(event.currentTarget.textContent);
+    console.log(pageNumber);
     onPageChanged(pageNumber);
     
   };
 
   const getPaginationGroup = () => {
-    return new Array(portionSize).fill().map((_, idx) => portionSize * (portionNumber - 1) + idx + 1);
+    return new Array(portionSize).fill(0).map((_, idx) => portionSize * (portionNumber - 1) + idx + 1);
   };
 
   return (
@@ -60,7 +68,7 @@ const Pagination = ({ totalCount, onPageChanged, currentPage }) => {
         .map((item, index) => (
           <button
             key={index}
-            onClick={changePage}
+            onClick={(e) => changePage(e)}
             className={`${style.paginationItem} ${currentPage === item ? `${style.active}` : null
               }`}
           >

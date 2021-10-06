@@ -1,12 +1,16 @@
 import React from "react";
 import style from "./Header.module.css";
 
-const Header = (props) => {
+type PropsType = {
+  logout : () => void
+}
+
+const Header : React.FC<PropsType> = (props) => {
   return (
     <div className={style.navigation}>
       <div className={style.button}>
         <img
-          src="https://freepikpsd.com/media/2019/10/logout-button-png-3-1-Transparent-Images.png"
+          src="https://e7.pngegg.com/pngimages/466/448/png-clipart-computer-icons-button-user-profile-button-angle-text-thumbnail.png"
           alt=""
           className={style.logoutImg}
         />

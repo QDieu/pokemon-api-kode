@@ -1,14 +1,24 @@
 import React from "react";
+import { CardType } from "../../../../api/cardAPI";
 import style from "./CardItemInfo.module.css";
 
-const InfoWrapper = ({name, data = null}) => (data ? <p><b>{name}</b> : {data}</p> : null)
+type InputDataInfoWrapper = {
+  name : string,
+  data : string [] | string | number |  undefined 
+}
 
-const CardItemInfo = ({card}) => {
+const InfoWrapper  = ({name, data = undefined} : InputDataInfoWrapper) => (data ? <p><b>{name}</b> : {data}</p> : null);
+
+type PropsType = {
+  card : CardType
+}
+
+const CardItemInfo : React.FC<PropsType> = ({card}) => {
   return (
     <div className={style.infoContainer}>
       <div className={style.leftSectionWrapper}>
         <img
-          src={card.images.large}
+          src={card.images?.large}
           alt=""
           className={style.imgPokemonInfo}
         />
@@ -20,7 +30,7 @@ const CardItemInfo = ({card}) => {
           {card.attacks ?card.attacks.map((attack,index) => <div key = {index}> 
             <InfoWrapper name={`Attack Name #${index+1}`} data = {attack.name}/>
             <InfoWrapper name={"Attack Damage "} data = {attack.damage}/>
-            <InfoWrapper name={"Attack Cost "} data = {attack.cost.join(' ')}/>
+            <InfoWrapper name={"Attack Cost "} data = {attack.cost?.join(' ')}/>
             <InfoWrapper name={"Attack desription"} data = {attack.text}/>
           </div>) : null}
         </div>

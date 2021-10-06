@@ -3,18 +3,21 @@ import Select from "./Select";
 import { useSelector, useDispatch } from "react-redux";
 import {
   getRarities,
-  setSelect,
   getSubTypes,
   getSuperTypes,
-  getTypes
+  getTypes,
+  actionsSelectReducer,
+  SelectFilterType
 } from "../../../redux/select-reducer";
+import { AppStateType } from "../../../redux/redux-store";
 
+type PropsType = {}
 
-const SelectContainer = () => {
-  const types = useSelector(state => state.select.types);
-  const subtypes = useSelector(state => state.select.subtypes);
-  const supertypes = useSelector (state => state.select.supertypes);
-  const rarities = useSelector (state => state.select.rarities);
+const SelectContainer : React.FC<PropsType> = (props) => {
+  const types = useSelector((state : AppStateType) => state.select.types);
+  const subtypes = useSelector((state : AppStateType) => state.select.subtypes);
+  const supertypes = useSelector ((state : AppStateType) => state.select.supertypes);
+  const rarities = useSelector ((state : AppStateType) => state.select.rarities);
 
   const dispatch = useDispatch();
 
@@ -25,8 +28,8 @@ const SelectContainer = () => {
     dispatch(getRarities());
   }, [])
 
-  const onChangeFilter = (selectFilter) => {
-    dispatch(setSelect(selectFilter))
+  const onChangeFilter = (selectFilter : SelectFilterType) => {
+    dispatch(actionsSelectReducer.setSelect(selectFilter))
   }
 
 

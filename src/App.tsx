@@ -5,7 +5,9 @@ import HeaderContainer from "./components/Header/HeaderContainer";
 import LoginContainer from "./components/Login/LoginContainer";
 import "./styles.css";
 
-export default function App() {
+type PropsType = {}
+
+const App : React.FC<PropsType> = (props) => {
     return (
     <div className="App">
       <Route
@@ -31,3 +33,5 @@ export default function App() {
     </div>
   );
 }
+
+export default App;

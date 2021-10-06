@@ -2,9 +2,14 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import style from "./Login.module.css";
 
-const Otp = (props) => {
+type PropsType = {
+  checkCodeOtp : (otp : string) => void,
+  errorOTP : boolean,
+}
+
+const Otp : React.FC<PropsType> = (props) => {
   const { register, handleSubmit , formState: {errors}} = useForm();
-  const onSubmit = (data) => {
+  const onSubmit = (data : {codeOTP : string}) => {
     props.checkCodeOtp(data.codeOTP);
   }
   return (

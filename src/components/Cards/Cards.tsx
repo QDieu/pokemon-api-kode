@@ -3,7 +3,9 @@ import style from "./Cards.module.css";
 import CardsItemsContainer from "./CardsItem/CardsItemContainer";
 import SelectContainer from "./Select/SelectContainer";
 
-const Cards = () => {
+type PropsType = {}
+
+const Cards : React.FC<PropsType> = (props) => {
   return (
     <div className={style.mainContainer}>
       <SelectContainer />

@@ -1,14 +1,24 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
+import { SelectFilterType } from "../../../redux/select-reducer";
 import style from "./Select.module.css";
 
-const Select = (props) => {
+type PropsType = {
+  types: Array<string>
+  subtypes: Array<string>
+  supertypes : Array<string>
+  rarities : Array<string>
+  onChangeFilter : (selectFilter : SelectFilterType) => void
+}
+
+const Select : React.FC<PropsType> = (props) => {
   let selectFilter = {
     types: "",
     subtypes: "",
     supertypes: "",
     rarities: ""
   };
-  const onChangeTypes = (e) => {
+
+  const onChangeTypes = (e : ChangeEvent<HTMLSelectElement>) => {
     switch (e.target.name) {
       case "filterTypes":
         selectFilter.types = e.target.value;
