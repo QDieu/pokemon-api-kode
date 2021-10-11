@@ -37,10 +37,6 @@ const selectReducer = (state = initialState, action : ActionSelectReducerType): 
     case SET_RARITIES:
       return { ...state, rarities: [...action.data] };
     case SET_SELECT:
-      // let selectFilterTemp  = {} as SelectFilterType;
-      // for (let key in action.selectFilter) {
-      //   selectFilterTemp[key] = action.selectFilter[key];
-      // }
       let selectFilterTemp : SelectFilterType = JSON.parse(JSON.stringify(action.selectFilter))
       return { ...state, selectFilter: selectFilterTemp };
     default:
@@ -48,7 +44,7 @@ const selectReducer = (state = initialState, action : ActionSelectReducerType): 
   }
 };
 
-type ActionSelectReducerType = InferActionsTypes<typeof actionsSelectReducer>
+export type ActionSelectReducerType = InferActionsTypes<typeof actionsSelectReducer>
 
 export const actionsSelectReducer = {
   setTypes : (data : Array<string>) => ({ type: SET_TYPES, data } as const),
@@ -61,7 +57,7 @@ export const actionsSelectReducer = {
   } as const),
 }
 
-type ThunkTypeSelectReducer = ThunkTypeCreator<ActionSelectReducerType>
+export type ThunkTypeSelectReducer = ThunkTypeCreator<ActionSelectReducerType>
 
 //Thunks
 export const getTypes = () : ThunkTypeSelectReducer => async (dispatch) => {

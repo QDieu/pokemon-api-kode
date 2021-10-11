@@ -24,7 +24,7 @@ const LoginContainer : React.FC<PropsType> = (props) => {
         dispatch(actionLoginReducer.clearErrorAuth());
       }, 3000);
     }
-  }, [errorAuth])
+  }, [dispatch, errorAuth])
 
   useEffect(() => {
     if (errorOTP) {
@@ -32,7 +32,7 @@ const LoginContainer : React.FC<PropsType> = (props) => {
         dispatch(actionLoginReducer.clearErrorOtp());
       }, 3000);
     }
-  }, [errorOTP])
+  }, [dispatch, errorOTP])
 
   const checkCodeOtpForm = (codeOTP : string) => {
     dispatch(actionLoginReducer.checkCodeOtp(codeOTP));

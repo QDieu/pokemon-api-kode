@@ -1,8 +1,10 @@
-import React, { useEffect } from "react";
+import React, { Dispatch, useEffect } from "react";
 import CardsItems from "./CardsItem";
 import {
   getCards,
-  actionsCardReducer
+  actionsCardReducer,
+  ThunkTypeCardReducer,
+  ActionsCardReducerType
 } from "../../../redux/card-reducer";
 import { useDispatch, useSelector } from "react-redux";
 import { AppStateType } from "../../../redux/redux-store";
@@ -16,11 +18,11 @@ const CardItemsContainer : React.FC<PropsType> = (props) => {
   const totalCount = useSelector((state : AppStateType) => state.cardItems.totalCount);
   const filter = useSelector((state : AppStateType) => state.select.selectFilter)
 
-  const dispatch = useDispatch();
+  const dispatch : Dispatch<ThunkTypeCardReducer | ActionsCardReducerType> = useDispatch();
 
   useEffect(() => {
     dispatch(actionsCardReducer.setCurrentPage(1));
-  },[filter])
+  },[dispatch, filter])
   
   useEffect(() => {
     let filterTemp = "";
@@ -35,7 +37,7 @@ const CardItemsContainer : React.FC<PropsType> = (props) => {
     }
 
     dispatch(getCards(20, currentPage, filterTemp))
-  }, [filter, currentPage])
+  }, [filter, currentPage, dispatch])
 
   
 

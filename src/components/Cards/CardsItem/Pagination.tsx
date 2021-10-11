@@ -1,4 +1,4 @@
-import React, { ChangeEvent, MouseEvent, useEffect, useState } from "react";
+import React, { MouseEvent, useEffect, useState } from "react";
 import style from "./Pagination.module.css";
 
 type PropsType = {
@@ -31,7 +31,6 @@ const Pagination : React.FC<PropsType>= ({ totalCount, onPageChanged, currentPag
   const changePage = (event : MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
     const pageNumber = Number(event.currentTarget.textContent);
-    console.log(pageNumber);
     onPageChanged(pageNumber);
     
   };

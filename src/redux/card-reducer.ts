@@ -34,7 +34,7 @@ const cardReducer = (state = initialState, action : ActionsCardReducerType) : In
   }
 };
 
-type ActionsCardReducerType = InferActionsTypes<typeof actionsCardReducer>
+export type ActionsCardReducerType = InferActionsTypes<typeof actionsCardReducer>
 
 export const actionsCardReducer = {
   setCards : (cards : Array<CardType>) => ({ type: SET_CARDS, cards: cards } as const),
@@ -62,7 +62,7 @@ export const actionsCardReducer = {
 
 //thunks
 
-type ThunkTypeCardReducer = ThunkTypeCreator<ActionsCardReducerType>
+export type ThunkTypeCardReducer = ThunkTypeCreator<ActionsCardReducerType>
 
 export const getCards = (pageSize : number, page : number, filter : string) : ThunkTypeCardReducer=> async (dispatch) => {
   let response = await cardAPI.getCard(pageSize, page, filter);
@@ -70,7 +70,7 @@ export const getCards = (pageSize : number, page : number, filter : string) : Th
   dispatch(actionsCardReducer.setTotalCount(response.totalCount))
 }
 
-export const getCardInfo = (id : number, unicId : number | null = null) : ThunkTypeCardReducer => async (dispatch, getState) => {
+export const getCardInfo = (id : number | string, unicId : number | null = null) : ThunkTypeCardReducer => async (dispatch, getState) => {
   
   if (unicId !== null) {
     const card = getState().cardItems.cards[unicId]

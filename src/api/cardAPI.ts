@@ -104,7 +104,7 @@ export const cardAPI = {
             }
         }).then(response => response.data);
     },
-    getCardInfo: (id: number) => {
+    getCardInfo: (id: number | string) => {
         return intance.get<ResponseTypeInfo>(`cards/${id}`).then(response => response.data);
     }
 }
